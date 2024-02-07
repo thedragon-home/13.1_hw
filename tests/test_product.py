@@ -1,5 +1,5 @@
 import pytest
-from product import Category, Product
+from main import Category, Product
 
 
 @pytest.fixture

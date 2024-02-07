@@ -22,3 +22,12 @@ class Product:
         self.description = descriotion
         self.price = price
         self.quontity_in_stock = quontity_in_stock
+
+# if __name__ == '__main__':
+#     product = Product('Apple', 'red apples', '200', '10')
+#
+#     print(product)
+#     print(product.name)
+#     print(product.description)
+#     print(product.price)
+#     print(product.quontity_in_stock)
