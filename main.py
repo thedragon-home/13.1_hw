@@ -22,11 +22,14 @@ class Category:
 
     @property
     def goods(self):
-        result = []
-        for product in self.__goods:
-            result.append(
-                f'Продукт: {product.name}, Цена: {product.price} руб., Остаток: {product.quontity_in_stock} шт.')
-        return result
+        return self.__goods
+
+    def __len__(self):
+        return len(self.__goods)
+
+    def __str__(self):
+        return f'{self.name}, количество продуктов:{Category.unique_products} шт.'
+
 
 class Product:
     '''
@@ -59,6 +62,13 @@ class Product:
         else:
             self._price = value
 
+    def __str__(self):
+        return f'Продукт: {self.name}, Цена: {self.price} руб., Остаток: {self.quontity_in_stock} шт.'
+
+    def __add__(self, other):
+        total_value = (self.price * self.quontity_in_stock) + (other.price * other.quontity_in_stock)
+        return total_value
+
 # # Создание объектов категории и товаров
 # category1 = Category("Electronics", "Category for electronic devices")
 # product1 = Product.add_product("Laptop", "Powerful laptop", 1500.0, 10)
@@ -69,5 +79,10 @@ class Product:
 # category1.add_to_list(product2)
 #
 # # Вывод списка товаров в категории
-# for product_info in category1.goods:
-#     print(product_info)
+# print(category1)
+# for product in category1.goods:
+#     print(product)
+#
+# # Выполнение операции сложения двух продуктов
+# result = product1 + product2
+# print(f'Результат сложения двух продуктов: {result}')
