@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 class Category:
     '''
     About Category name, description, goods
@@ -34,7 +36,13 @@ class Category:
         return f'{self.name}, количество продуктов:{Category.unique_products} шт.'
 
 
-class Product:
+class ReprMixin:
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name={self.name}, description={self.description})"
+
+
+class Product(ABC):
     '''
     About Product price, name, description, quontity
     '''
@@ -45,12 +53,16 @@ class Product:
     quontity_in_stock: int
     collor: str
 
+    @abstractmethod
     def __init__(self, name, description, price, quontity_in_stock, collor):
         self.name = name
         self.description = description
         self.price = price
         self.quontity_in_stock = quontity_in_stock
         self.collor = collor
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.__dict__})"
 
     @classmethod
     def add_product(cls, name, description, price, quontity_in_stock):
@@ -78,7 +90,7 @@ class Product:
             raise ValueError('Ошибка типа! Нельзя складывать продукты разных типов.')
 
 
-class Smartphone(Product):
+class Smartphone(Product, ReprMixin):
     """
     Smartphone
     """
@@ -91,6 +103,7 @@ class Smartphone(Product):
         self.performance = performance
         self.model = model
         self.memory_capacity = memory_capacity
+        print(f"Создан объект: {self.__class__.__name__}")
 
     @property
     def price(self):
@@ -103,8 +116,14 @@ class Smartphone(Product):
         else:
             raise ValueError("Цена должна быть положительным числом")
 
+    def __str__(self):
+        pass
 
-class Grass(Product):
+    def __add__(self, other):
+        pass
+
+
+class Grass(Product, ReprMixin):
     """
     Grass
     """
@@ -115,6 +134,13 @@ class Grass(Product):
         super().__init__(name, description, price, quontity_in_stock, color)
         self.country_of_manufacture = country_of_manufacture
         self.germination_time = germination_time
+        print(f"Создан объект: {self.__class__.__name__}")
+
+    def __add__(self, other):
+        pass
+
+    def __str__(self):
+        pass
 
 
 # # Создаем объекты Smartphone
