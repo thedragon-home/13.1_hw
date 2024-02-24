@@ -131,27 +131,27 @@ class Grass(Product, ReprMixin):
         print(f"Создан объект: {self.__class__.__name__}")
 
 
-# Создаем объекты Smartphone
-iphone = Smartphone("iPhone 15", "The latest iPhone model", 1000, 10, "A17 Bionic", "iPhone 15", "256GB", "black")
-samsung = Smartphone("Samsung Galaxy S23", "Flagship Samsung phone", 900, 15, "Snap 8 Gen3", "Galaxy S23", "128GB", "silver")
-
-# Создаем объекты Grass
-wheat = Grass("Wheat seeds", "High-quality wheat seeds", 5, 100, "USA", "7 days", "brown")
-barley = Grass("Barley seeds", "Premium barley seeds", 4, 80, "Canada", "5 days", "yellow")
-
-# Создаем категории
-phones_category = Category("Phones", 'new phone')
-seeds_category = Category("Seeds", 'new seeds')
-
-# Добавляем продукты в категории
-phones_category.add_to_list(iphone)
-phones_category.add_to_list(samsung)
-seeds_category.add_to_list(wheat)
-seeds_category.add_to_list(barley)
-
-# Проверяем сумму цен продуктов одного типа
-total_phone_price = iphone + samsung
-print(f"Total price of smartphones: ${total_phone_price}")
-
-total_seed_price = wheat + barley
-print(f"Total price of seeds: ${total_seed_price}")
+# # Создаем объекты Smartphone
+# iphone = Smartphone("iPhone 15", "The latest iPhone model", 1000, 10, "A17 Bionic", "iPhone 15", "256GB", "black")
+# samsung = Smartphone("Samsung Galaxy S23", "Flagship Samsung phone", 900, 15, "Snap 8 Gen3", "Galaxy S23", "128GB", "silver")
+#
+# # Создаем объекты Grass
+# wheat = Grass("Wheat seeds", "High-quality wheat seeds", 5, 100, "USA", "7 days", "brown")
+# barley = Grass("Barley seeds", "Premium barley seeds", 4, 80, "Canada", "5 days", "yellow")
+#
+# # Создаем категории
+# phones_category = Category("Phones", 'new phone')
+# seeds_category = Category("Seeds", 'new seeds')
+#
+# # Добавляем продукты в категории
+# phones_category.add_to_list(iphone)
+# phones_category.add_to_list(samsung)
+# seeds_category.add_to_list(wheat)
+# seeds_category.add_to_list(barley)
+#
+# # Проверяем сумму цен продуктов одного типа
+# total_phone_price = iphone + samsung
+# print(f"Total price of smartphones: ${total_phone_price}")
+#
+# total_seed_price = wheat + barley
+# print(f"Total price of seeds: ${total_seed_price}")
