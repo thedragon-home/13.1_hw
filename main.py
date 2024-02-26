@@ -42,7 +42,17 @@ class ReprMixin:
         return f"{self.__class__.__name__}(name={self.name}, description={self.description})"
 
 
-class Product(ABC):
+class BaseProduct:
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+    def __str__(self):
+        pass
+
+
+class Product(ABC, BaseProduct):
     '''
     About Product price, name, description, quontity
     '''
