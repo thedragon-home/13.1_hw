@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Category:
     '''
     About Category name, description, goods
@@ -18,7 +19,7 @@ class Category:
         self.__goods = []
         Category.total_num_in_categories += 1
 
-    def add_to_list(self, product): # Метод добавления товара в список товаров категории
+    def add_to_list(self, product):  # Метод добавления товара в список товаров категории
         if isinstance(product, Product):
             self.__goods.append(product)
             Category.unique_products += 1
@@ -38,21 +39,30 @@ class Category:
 
 class ReprMixin:
 
+    #Попытался поменять в smartphone и grass родители не получилось
+    # def __init__(self, name, description, price, quontity_in_stock, color):
+    #     super().__init__(name, description, price, quontity_in_stock, color)
+
     def __repr__(self):
-        return f"{self.__class__.__name__}(name={self.name}, description={self.description})"
+        return f'Создан объект {self.__class__.__name__} ' + ', '.join([f'{k}={v}' for k, v in self.__dict__.items()])
 
 
-class BaseProduct:
+class BaseProduct(ABC):
+
+    @abstractmethod
+    def __init__(self):
+        pass
 
     @abstractmethod
     def __add__(self, other):
         pass
 
+    @abstractmethod
     def __str__(self):
         pass
 
 
-class Product(ABC, BaseProduct):
+class Product(BaseProduct):
     '''
     About Product price, name, description, quontity
     '''
@@ -63,16 +73,12 @@ class Product(ABC, BaseProduct):
     quontity_in_stock: int
     collor: str
 
-    @abstractmethod
     def __init__(self, name, description, price, quontity_in_stock, collor):
         self.name = name
         self.description = description
         self.price = price
         self.quontity_in_stock = quontity_in_stock
         self.collor = collor
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.__dict__})"
 
     @classmethod
     def add_product(cls, name, description, price, quontity_in_stock):
@@ -113,7 +119,6 @@ class Smartphone(Product, ReprMixin):
         self.performance = performance
         self.model = model
         self.memory_capacity = memory_capacity
-        print(f"Создан объект: {self.__class__.__name__}")
 
     @property
     def price(self):
@@ -138,8 +143,6 @@ class Grass(Product, ReprMixin):
         super().__init__(name, description, price, quontity_in_stock, color)
         self.country_of_manufacture = country_of_manufacture
         self.germination_time = germination_time
-        print(f"Создан объект: {self.__class__.__name__}")
-
 
 # # Создаем объекты Smartphone
 # iphone = Smartphone("iPhone 15", "The latest iPhone model", 1000, 10, "A17 Bionic", "iPhone 15", "256GB", "black")
@@ -165,3 +168,17 @@ class Grass(Product, ReprMixin):
 #
 # total_seed_price = wheat + barley
 # print(f"Total price of seeds: ${total_seed_price}")
+
+
+
+
+class TestClass(ReprMixin):
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+# Создаем объект класса TestClass
+obj = TestClass("Alice", 25)
+
+# Печатаем информацию о созданном объекте с помощью метода __repr__
+print(obj)
