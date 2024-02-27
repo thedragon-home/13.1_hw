@@ -40,8 +40,8 @@ class Category:
 class ReprMixin:
 
     #Попытался поменять в smartphone и grass родители не получилось
-    # def __init__(self, name, description, price, quontity_in_stock, color):
-    #     super().__init__(name, description, price, quontity_in_stock, color)
+    def __init__(self):
+        print(repr(self))
 
     def __repr__(self):
         return f'Создан объект {self.__class__.__name__} ' + ', '.join([f'{k}={v}' for k, v in self.__dict__.items()])
@@ -62,7 +62,7 @@ class BaseProduct(ABC):
         pass
 
 
-class Product(BaseProduct):
+class Product(ReprMixin, BaseProduct):
     '''
     About Product price, name, description, quontity
     '''
@@ -79,6 +79,7 @@ class Product(BaseProduct):
         self.price = price
         self.quontity_in_stock = quontity_in_stock
         self.collor = collor
+        super().__init__()
 
     @classmethod
     def add_product(cls, name, description, price, quontity_in_stock):
@@ -144,10 +145,10 @@ class Grass(Product, ReprMixin):
         self.country_of_manufacture = country_of_manufacture
         self.germination_time = germination_time
 
-# # Создаем объекты Smartphone
-# iphone = Smartphone("iPhone 15", "The latest iPhone model", 1000, 10, "A17 Bionic", "iPhone 15", "256GB", "black")
-# samsung = Smartphone("Samsung Galaxy S23", "Flagship Samsung phone", 900, 15, "Snap 8 Gen3", "Galaxy S23", "128GB", "silver")
-#
+# Создаем объекты Smartphone
+iphone = Smartphone("iPhone 15", "The latest iPhone model", 1000, 10, "A17 Bionic", "iPhone 15", "256GB", "black")
+samsung = Smartphone("Samsung Galaxy S23", "Flagship Samsung phone", 900, 15, "Snap 8 Gen3", "Galaxy S23", "128GB", "silver")
+
 # # Создаем объекты Grass
 # wheat = Grass("Wheat seeds", "High-quality wheat seeds", 5, 100, "USA", "7 days", "brown")
 # barley = Grass("Barley seeds", "Premium barley seeds", 4, 80, "Canada", "5 days", "yellow")
@@ -172,13 +173,14 @@ class Grass(Product, ReprMixin):
 
 
 
-class TestClass(ReprMixin):
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-# Создаем объект класса TestClass
-obj = TestClass("Alice", 25)
-
-# Печатаем информацию о созданном объекте с помощью метода __repr__
-print(obj)
+# class TestClass(ReprMixin):
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+#         super().__init__()
+#
+# # Создаем объект класса TestClass
+# obj = TestClass("Alice", 25)
+#
+# # Печатаем информацию о созданном объекте с помощью метода __repr__
+# print(obj)
