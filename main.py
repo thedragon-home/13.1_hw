@@ -36,6 +36,16 @@ class Category:
     def __str__(self):
         return f'{self.name}, количество продуктов:{Category.unique_products} шт.'
 
+    def average_price(self):
+        total_price = sum(product.price for product in self.__goods)
+        total_num_products = len(self.__goods)
+        try:
+            average_price = total_price / total_num_products
+        except ZeroDivisionError:
+            print("Ошибка: Нельзя вычислить средний ценник, так как в категории нет товаров.")
+            return 0
+        return average_price
+
 
 class ReprMixin:
 
@@ -82,8 +92,10 @@ class Product(ReprMixin, BaseProduct):
         super().__init__()
 
     @classmethod
-    def add_product(cls, name, description, price, quontity_in_stock):
-        return cls(name, description, price, quontity_in_stock)
+    def add_product(cls, name, description, price, quontity_in_stock, color):
+        if quontity_in_stock == 0:
+            raise ValueError('Товар с нулевым количеством не может быть добавлен.')
+        return cls(name, description, price, quontity_in_stock, color)
 
     @property
     def price(self):
@@ -145,42 +157,31 @@ class Grass(Product, ReprMixin):
         self.country_of_manufacture = country_of_manufacture
         self.germination_time = germination_time
 
-# Создаем объекты Smartphone
-iphone = Smartphone("iPhone 15", "The latest iPhone model", 1000, 10, "A17 Bionic", "iPhone 15", "256GB", "black")
-samsung = Smartphone("Samsung Galaxy S23", "Flagship Samsung phone", 900, 15, "Snap 8 Gen3", "Galaxy S23", "128GB", "silver")
 
-# # Создаем объекты Grass
-# wheat = Grass("Wheat seeds", "High-quality wheat seeds", 5, 100, "USA", "7 days", "brown")
-# barley = Grass("Barley seeds", "Premium barley seeds", 4, 80, "Canada", "5 days", "yellow")
-#
-# # Создаем категории
-# phones_category = Category("Phones", 'new phone')
-# seeds_category = Category("Seeds", 'new seeds')
-#
-# # Добавляем продукты в категории
-# phones_category.add_to_list(iphone)
-# phones_category.add_to_list(samsung)
-# seeds_category.add_to_list(wheat)
-# seeds_category.add_to_list(barley)
-#
-# # Проверяем сумму цен продуктов одного типа
-# total_phone_price = iphone + samsung
-# print(f"Total price of smartphones: ${total_phone_price}")
-#
-# total_seed_price = wheat + barley
-# print(f"Total price of seeds: ${total_seed_price}")
+if __name__ == "__main__":
+    ################### TASK 1 ###################################
+    # try:
+    #     product1 = Product.add_product("Товар 1", "Описание товара 1", 100, 5, 'yellow')
+    #     product2 = Product.add_product("Товар 2", "Описание товара 2", 150, 0, 'blue')  # Попытка добавить товар с нулевым количеством
+    # except ValueError as e:
+    #     print(f"Исключение: {e}")
+    # else:
+    #     print("Товары успешно добавлены.")
 
 
+    ################### TASK 2 ##################################
+    # # Создаем экземпляр категории
+    # category1 = Category("Категория 1", "Описание категории 1")
+    #
+    # # Добавляем несколько товаров в категорию
+    # product1 = Product.add_product("Товар 1", "Описание товара 1", 100, 5, "красный")
+    # product2 = Product.add_product("Товар 2", "Описание товара 2", 150, 3, "синий")
+    # category1.add_to_list(product1)
+    # category1.add_to_list(product2)
+    #
+    # # Вызываем метод для подсчета средней цены
+    # average_price = category1.average_price()
+    # print(f"Средний ценник всех товаров в категории: {average_price} руб.")
 
 
-# class TestClass(ReprMixin):
-#     def __init__(self, name, age):
-#         self.name = name
-#         self.age = age
-#         super().__init__()
-#
-# # Создаем объект класса TestClass
-# obj = TestClass("Alice", 25)
-#
-# # Печатаем информацию о созданном объекте с помощью метода __repr__
-# print(obj)
+
